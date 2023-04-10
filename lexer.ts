@@ -33,10 +33,12 @@ function isInt(src: string): boolean {
   return /^-?\d+$/.test(src);
 }
 
+// If character is useless so we don't create its token
 function isSkippable(src: string): boolean {
   return src === " " || src === "\n" || src === "\t";
 }
 
+// Function to tokenize source code
 export function tokenize(sourceCode: string): Token[] {
   const tokens = new Array<Token>();
   const src: string[] = sourceCode.split("");
@@ -53,7 +55,6 @@ export function tokenize(sourceCode: string): Token[] {
       tokens.push(token(src.shift() ?? "", TokenType.Equals));
     } else {
       // Handle Multi character tokens
-
       if (isInt(src[0])) {
         let num = "";
         while (src.length > 0 && isInt(src[0])) {
